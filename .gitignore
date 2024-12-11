@@ -2,3 +2,4 @@
 services/user-service/.env
 services/post-service/.env
 services/service-suggest/requirements.txt
+services/client/node_modules
