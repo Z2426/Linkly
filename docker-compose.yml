@@ -1,0 +1,272 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "${REDIS_SERVICE_PORT:-6379}:${REDIS_SERVICE_PORT:-6379}"
+    networks:
+      - app-network
+    volumes:
+      - redis_data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 800M
+          cpus: '0.8'
+        reservations:
+          memory: 128M
+          cpus: '0.2'
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: ./services/notification-service/Dockerfile
+    container_name: notification-service
+    env_file: .env
+    ports:
+      - "${NOTIFICATION_SERVICE_PORT}:${NOTIFICATION_SERVICE_PORT}"
+    volumes:
+      - ./services/notification-service:/usr/src/app
+      - ./shared:/usr/src/app/shared
+      - /usr/src/app/node_modules
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: ./services/auth-service/Dockerfile
+    container_name: auth-service
+    env_file: .env
+    ports:
+      - "${AUTH_SERVICE_PORT}:${AUTH_SERVICE_PORT}"
+    volumes:
+      - ./services/auth-service:/usr/src/app
+      - ./shared:/usr/src/app/shared
+      - /usr/src/app/node_modules
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
+
+  chat-service:
+    build:
+      context: .
+      dockerfile: ./services/chat-service/Dockerfile
+    container_name: chat-service
+    env_file: .env
+    ports:
+      - "${CHAT_SERVICE_PORT}:${CHAT_SERVICE_PORT}"
+    volumes:
+      - ./services/chat-service:/usr/src/app
+      - ./shared:/usr/src/app/shared
+      - /usr/src/app/node_modules
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
+
+  hal9000-service:
+    build:
+      context: .
+      dockerfile: ./services/HAL9000/Dockerfile
+    container_name: HAL9000
+    env_file: .env
+    ports:
+      - "${BOT_PORT}:${BOT_PORT}"
+    volumes:
+      - ./services/HAL9000:/usr/src/app
+      - ./shared:/usr/src/app/shared
+      - /usr/src/app/node_modules
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
+
+  user-service:
+    build:
+      context: .
+      dockerfile: ./services/user-service/Dockerfile
+    container_name: user-service
+    env_file: .env
+    ports:
+      - "${USER_SERVICE_PORT}:${USER_SERVICE_PORT}"
+    volumes:
+      - ./services/user-service:/usr/src/app
+      - ./shared:/usr/src/app/shared
+      - /usr/src/app/node_modules
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
+
+  post-service:
+    build:
+      context: .
+      dockerfile: ./services/post-service/Dockerfile
+    container_name: post-service
+    env_file: .env
+    ports:
+      - "${POST_SERVICE_PORT}:${POST_SERVICE_PORT}"
+    volumes:
+      - ./services/post-service:/usr/src/app
+      - ./shared:/usr/src/app/shared
+      - /usr/src/app/node_modules
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          memory: 1200M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
+
+  websocket-service:
+    build:
+      context: .
+      dockerfile: ./services/websocket-service/Dockerfile
+    container_name: websocket-service
+    env_file: .env
+    ports:
+      - "${WS_SERVICE_PORT}:${WS_SERVICE_PORT}"
+    volumes:
+      - ./services/websocket-service:/usr/src/app
+      - ./shared:/usr/src/app/shared
+      - /usr/src/app/node_modules
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - WS_PORT=${WS_SERVICE_PORT}
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.2'
+
+  moderationai-service:
+    build:
+      context: .
+      dockerfile: ./services/moderationAi-service/Dockerfile
+    container_name: moderationAi-service
+    env_file: .env
+    ports:
+      - "3008:3008"
+    volumes:
+      - data_models:/root/.cache/huggingface/transformers
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app-network
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+
+  suggest-service:
+    build:
+      context: .
+      dockerfile: ./services/service-suggest/Dockerfile
+    container_name: service-suggest
+    env_file: .env
+    ports:
+      - "3009:3009"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app-network
+    volumes:
+      - deepface_weights:/root/.deepface/weights
+      - data_models:/root/.cache/huggingface/transformers
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  data_models: {}
+  cache_volume: {}
+  redis_data: {}
+  deepface_weights: {}
