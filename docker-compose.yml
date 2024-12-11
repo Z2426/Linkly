@@ -267,7 +267,7 @@ services:
     container_name: client
     env_file: .env
     ports:
-      - "3000:$3000"
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
     volumes:
       - ./services/client:/usr/src/app
       - ./shared:/usr/src/app/shared
