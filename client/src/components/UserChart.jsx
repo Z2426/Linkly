@@ -26,19 +26,19 @@ const UserChart = () => {
   const [filter, setFilter] = useState("month");
   const fetchuserdashboard = async () => {
     const ages = await ageDashboard();
-    setAge(ages);
+    ages && setAge(ages);
     const gender = await genderDashboard();
-    setGenders(gender);
+    gender && setGenders(gender);
 
     const getuser = await userDashboard();
 
-    setTotal(getuser?.data);
+    getuser && setTotal(getuser?.data);
   };
   const handlefill = async (filter) => {
     const monthly = await monthregisterDashboard(filter);
     console.log(monthly);
 
-    setMonthlys(monthly);
+    monthly && setMonthlys(monthly);
   };
   useEffect(() => {
     fetchuserdashboard();

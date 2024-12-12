@@ -27,13 +27,13 @@ const Chart = () => {
   const fetchdashboard = async () => {
     const byreason = await reportsbyreasonDashboard();
 
-    SetReason(byreason);
+    byreason && SetReason(byreason);
     const bypost = await reportsbypostDashboard();
-    setBypost(bypost);
+    bypost && setBypost(bypost);
   };
   const handlefill = async (filter) => {
     const report = await dayreportDashboard(filter);
-    setMonth(report);
+    report && setMonth(report);
   };
   useEffect(() => {
     fetchdashboard();
