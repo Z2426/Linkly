@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const requestWithCircuitBreaker = require('../shared/utils/circuitBreaker.js');
 exports.findUser = async (criteria) => {

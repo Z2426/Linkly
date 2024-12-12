@@ -26,8 +26,7 @@ exports.searchPosts = async (userId, keyword, page = 1, limit = 10, filters = {}
         { visibility: 'public', description: regex },
         { visibility: 'friends', description: regex, specifiedUsers: userId },
         { visibility: 'private', userId: userId, description: regex }
-      ],
-      status: { $ne: 'rejected' }
+      ]
     };
     if (filters.categories && Array.isArray(filters.categories)) {
       query.categories = { $in: filters.categories };
@@ -112,32 +111,34 @@ exports.createPost = async (postData) => {
 exports.getUserPosts = async (userId, page = 1, limit = 10, isOwnPost = false) => {
   try {
     const skip = (page - 1) * limit;
-    const query = { userId };
-    if (!isOwnPost) {
-      query.status = { $ne: "rejected" };
-    }
-    const posts = await Post.find(query)
+    const posts = await Post.find({ userId })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-
     if (posts.length === 0) {
       return [];
     }
-    const userInfoResponse = await axios.get(
-      `${process.env.URL_USER_SERVICE}/getUsersBulk`,
-      { params: { userIds: userId } }
+    const filteredPosts = posts.filter(post => {
+      if (!isOwnPost && post.status === 'rejected') {
+        return false;
+      }
+      return true;
+    });
+    if (filteredPosts.length === 0) {
+      return [];
+    }
+    const userInfo = await requestWithCircuitBreaker(
+      `${process.env.URL_USER_SERVICE}/getUsersBulk?userIds=${userId}`,
+      'GET'
     );
-    const userInfo = userInfoResponse.data || null;
-    const postsWithUserInfo = posts.map(post => ({
+    const postsWithUserInfo = filteredPosts.map(post => ({
       ...post.toObject(),
-      userDetails: userInfo,
+      userDetails: userInfo || null,
     }));
-
     return postsWithUserInfo;
   } catch (error) {
-    console.error("Error fetching user's post list:", error.message);
-    throw new Error("Error fetching the user's post list");
+    console.error(error);
+    throw new Error('Error fetching the user\'s post list');
   }
 };
 exports.getPostWithUserDetails = async (postId) => {

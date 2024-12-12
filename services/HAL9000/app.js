@@ -4,6 +4,7 @@ const AiRoutes = require('./routes/index.js')
 require('./shared/utils/circuitBreaker.js')
 const cors = require('cors');
 require('dotenv').config();
+const axios = require('axios');
 /** ================================================ 
  * Configure Express App
  * ================================================ */
