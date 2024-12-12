@@ -96,7 +96,6 @@ const ProfileDetail = ({ title }) => {
 
   const getFriend = async () => {
     const res = await usergetFriends(user?.token);
-    console.log(res?.friends);
 
     setFriend(res?.friends);
   };
