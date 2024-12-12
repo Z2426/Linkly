@@ -43,8 +43,6 @@ const ProfileDetail = ({ title }) => {
       getFriend();
     } else if (friend) {
       try {
-        console.log(search);
-
         const list = [];
         list.push(
           friend.length > 0 &&
@@ -54,8 +52,6 @@ const ProfileDetail = ({ title }) => {
                 obj.lastName.toLowerCase() === search.toLowerCase()
             )
         );
-
-        console.log(list);
 
         setFriend([...list]);
         // const res = await apiRequest({
