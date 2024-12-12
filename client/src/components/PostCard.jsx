@@ -221,7 +221,7 @@ const ReplyCard = ({ reply, user, handleLike }) => {
         </div>
       </div>
       <div className="ml-12">
-        <p className="text-ascent-2">{reply?.comment}</p>
+        <p className="text-ascent-2 overflow-hidden">{reply?.comment}</p>
         {checkurl(reply?.comment) && (
           <div className="max-w-xs rounded-xl overflow-hidden">
             <LinkPr text={reply?.comment} />
@@ -649,7 +649,9 @@ const PostCard = ({ posts, user, deletePost, likePost, isCheck }) => {
                     </div>
 
                     <div className="ml-12">
-                      <p className="text-ascent-2">{comment?.comment}</p>
+                      <p className="text-ascent-2 overflow-hidden">
+                        {comment?.comment}
+                      </p>
                       {checkurl(comment?.comment) && (
                         <div className="max-w-xs rounded-xl overflow-hidden">
                           <LinkPr text={comment?.comment} />

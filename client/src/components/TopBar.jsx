@@ -308,7 +308,11 @@ const TopBar = ({ user, setKey }) => {
                     )
                     .map((item) => {
                       return (
-                        <Link key={item._id} to={`profile/${item._id}`}>
+                        // <Link key={item._id} to={`profile/${item._id}`}>
+                        <a
+                          href={`http://localhost:3000/profile/${item._id}`}
+                          target="_blank"
+                        >
                           <div className="px-5 py-2 text-ascent-1 flex items-center gap-2">
                             <img
                               src={item.profileUrl ?? NoProfile}
@@ -316,7 +320,7 @@ const TopBar = ({ user, setKey }) => {
                             />
                             {item.firstName} {item.lastName}
                           </div>
-                        </Link>
+                        </a>
                       );
                     })}
                 {/* <div className="w-full py-5 flex items-center justify-center">
@@ -341,7 +345,11 @@ const TopBar = ({ user, setKey }) => {
                   listSearchUser.length > 0 &&
                   listSearchUser.map((item) => {
                     return (
-                      <Link key={item._id} to={`profile/${item._id}`}>
+                      // <Link key={item._id} to={`profile/${item._id}`}>
+                      <a
+                        href={`http://localhost:3000/profile/${item._id}`}
+                        target="_blank"
+                      >
                         <div className="px-5 py-2 text-ascent-1 flex items-center gap-2">
                           <img
                             src={item.profileUrl ?? NoProfile}
@@ -349,7 +357,7 @@ const TopBar = ({ user, setKey }) => {
                           />
                           {item.firstName} {item.lastName}
                         </div>
-                      </Link>
+                      </a>
                     );
                   })}
                 {loading && (

@@ -21,7 +21,7 @@ import { postfetchuserPosts, postlikePost } from "../until/post";
 import { io } from "socket.io-client";
 import { useTranslation } from "react-i18next";
 const ProfileDetail = ({ title }) => {
-  const [friend, setFriend] = useState();
+  const [friend, setFriend] = useState([]);
   const { user, edit } = useSelector((state) => state.user);
   const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -40,16 +40,30 @@ const ProfileDetail = ({ title }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
     if (search === "") {
-      //   fetchSuggestFriends();
-    } else {
+      getFriend();
+    } else if (friend) {
       try {
-        const res = await apiRequest({
-          url: `/users/search/${search}`,
-          token: user?.token,
-          data: {},
-          method: "POST",
-        });
+        console.log(search);
 
+        const list = [];
+        list.push(
+          friend.length > 0 &&
+            friend.find(
+              (obj) =>
+                obj.firstName.toLowerCase() === search.toLowerCase() ||
+                obj.lastName.toLowerCase() === search.toLowerCase()
+            )
+        );
+
+        console.log(list);
+
+        setFriend([...list]);
+        // const res = await apiRequest({
+        //   url: `/users/search/${search}`,
+        //   token: user?.token,
+        //   data: {},
+        //   method: "POST",
+        // });
         // setsuggestedFriends(res);
       } catch (error) {
         console.log(error);
@@ -86,6 +100,7 @@ const ProfileDetail = ({ title }) => {
 
   const getFriend = async () => {
     const res = await usergetFriends(user?.token);
+    console.log(res?.friends);
 
     setFriend(res?.friends);
   };
@@ -137,37 +152,38 @@ const ProfileDetail = ({ title }) => {
                 search
               </button> */}
             </form>
-            {friend?.map((friend) => {
-              return (
-                <div
-                  className="w-full flex gap-4 items-center cursor-pointer"
-                  onClick={() => {
-                    setLoading(true);
-                    getUser(friend?._id);
-                    setUid(friend?._id);
-                    getPosts(friend?._id);
-                  }}
-                >
-                  <img
-                    src={friend?.profileUrl ?? NoProfile}
-                    alt={friend?.firstName}
-                    className="w-16 h-16 object-cover rounded-full"
-                  />
-                  <div className="flex-1">
-                    <p className="text-base font-medium text-ascent-1">
-                      {friend?.firstName} {friend?.lastName}
-                    </p>
-                    <span className="text-sm text-ascent-2">
-                      {friend?.profession ?? t("No Profession")}
-                    </span>
-                  </div>
-                  {/* <CustomButton
+            {friend &&
+              friend?.map((friend) => {
+                return (
+                  <div
+                    className="w-full flex gap-4 items-center cursor-pointer"
+                    onClick={() => {
+                      setLoading(true);
+                      getUser(friend?._id);
+                      setUid(friend?._id);
+                      getPosts(friend?._id);
+                    }}
+                  >
+                    <img
+                      src={friend?.profileUrl ?? NoProfile}
+                      alt={friend?.firstName}
+                      className="w-16 h-16 object-cover rounded-full"
+                    />
+                    <div className="flex-1">
+                      <p className="text-base font-medium text-ascent-1">
+                        {friend?.firstName} {friend?.lastName}
+                      </p>
+                      <span className="text-sm text-ascent-2">
+                        {friend?.profession ?? t("No Profession")}
+                      </span>
+                    </div>
+                    {/* <CustomButton
                     containerStyles="bg-blue px-3 rounded-xl py-1 text-white"
                     tittle="Unfriend"
                   /> */}
-                </div>
-              );
-            })}
+                  </div>
+                );
+              })}
 
             {/* {(() => {
               const items = [];
