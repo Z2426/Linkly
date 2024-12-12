@@ -243,6 +243,7 @@ lg:rounded-lg h-screen overflow-hidden"
                         <div>
                           <input
                             type="date"
+                            max={maxDate}
                             onChange={(e) => {
                               setFrom(e.target.value);
                               setPage(1);
