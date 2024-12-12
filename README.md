@@ -20,15 +20,13 @@ Run the following command in your terminal:
 git clone https://github.com/Z2426/Linkly
 ```
 
-#### Step 2: Navigate to the Services Directory
+#### Step 2: Create the `.env` File
+- Create a `.env` file.
+- Populate it with the environment variables from the provided `env.BE` configuration file at the specified link.
+#### Step 3: Navigate to the Services Directory
 ```bash
 cd Linkly/services
 ```
-
-#### Step 3: Create the `.env` File
-- Create a `.env` file.
-- Populate it with the environment variables from the provided `env.BE` configuration file at the specified link.
-
 #### Step 4: Build and Start Services
 Run the following command:
 ```bash
