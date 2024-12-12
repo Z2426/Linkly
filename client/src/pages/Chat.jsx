@@ -179,6 +179,7 @@ const RangeChat = forwardRef(
     const fetchnextchat = async (idroom) => {
       try {
         const res = await fetchChat(user?.token, idroom, page);
+        console.log(res);
 
         try {
           if (
@@ -505,7 +506,9 @@ const RangeChat = forwardRef(
 
     useEffect(() => {
       // setLoading(true);
-      // console.log(idroom);
+
+      console.log(page);
+
       if (page == 1) {
         fetchchat(idroom);
       } else {

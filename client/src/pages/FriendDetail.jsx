@@ -20,6 +20,7 @@ import { usergetFriends, usergetUserInfo } from "../until/user";
 import { postfetchuserPosts, postlikePost } from "../until/post";
 import { io } from "socket.io-client";
 import { useTranslation } from "react-i18next";
+import { filter } from "lodash";
 const ProfileDetail = ({ title }) => {
   const [friend, setFriend] = useState([]);
   const { user, edit } = useSelector((state) => state.user);
@@ -37,35 +38,32 @@ const ProfileDetail = ({ title }) => {
     await getPosts(uid);
   };
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (search === "") {
-      getFriend();
-    } else if (friend) {
-      try {
-        const list = [];
-        list.push(
-          friend.length > 0 &&
-            friend.find(
-              (obj) =>
-                obj.firstName.toLowerCase() === search.toLowerCase() ||
-                obj.lastName.toLowerCase() === search.toLowerCase()
-            )
-        );
+  // const handleSearch = async (e) => {
+  //   e.preventDefault();
+  //   if (search === "") {
+  //     getFriend();
+  //   } else if (friend) {
+  //     try {
+  //       await getFriend();
+  //       const list = [];
+  //       console.log(friend);
 
-        setFriend([...list]);
-        // const res = await apiRequest({
-        //   url: `/users/search/${search}`,
-        //   token: user?.token,
-        //   data: {},
-        //   method: "POST",
-        // });
-        // setsuggestedFriends(res);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+  //       list.push(
+  //         friend.length > 0 &&
+  //           friend.find(
+  //             (obj) =>
+  //               obj.firstName.toLowerCase() === search.toLowerCase() ||
+  //               obj.lastName.toLowerCase() === search.toLowerCase()
+  //           )
+  //       );
+  //       console.log(list);
+
+  //       setFriend([...list]);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
   // const fetchFriend = () => {};
   const handleLikePost = async (uri) => {
     await postlikePost({ uri: uri, token: user?.token });
@@ -119,7 +117,9 @@ const ProfileDetail = ({ title }) => {
             <span className="text-xl font-semibold">{t("All Friends")}</span>
             <form
               className="hidden md:flex items-center justify-center gap-5"
-              onSubmit={(e) => handleSearch(e)}
+              onSubmit={(e) => {}}
+
+              // handleSearch(e)
             >
               {/* <TextInput
                       styles="w-full rounded-l-full py-5"
@@ -133,21 +133,10 @@ const ProfileDetail = ({ title }) => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              {/* <CustomButton
-                      tittle="search"
-                      type="submit"
-                      containerStyles="bg-[#0444a4] text-white px-5 py-1 mt-2 rounded-full"
-                    /> */}
-
-              {/* <button
-                onClick={() => {}}
-                type={"submit"}
-                className={`inline-flex items-center text-base bg-[#0444a4] text-white px-5 py-1 mt-2 rounded-full`}
-              >
-                search
-              </button> */}
             </form>
-            {friend &&
+            {!search &&
+              friend &&
+              friend.length > 0 &&
               friend?.map((friend) => {
                 return (
                   <div
@@ -180,36 +169,46 @@ const ProfileDetail = ({ title }) => {
                 );
               })}
 
-            {/* {(() => {
-              const items = [];
-              for (let i = 0; i < 20; i++) {
-                items.push(
-                  <div
-                    className="w-full flex gap-4 items-center cursor-pointer"
-                    onClick={() => getUser("")}
-                  >
-                    <img
-                      src={user?.profileUrl ?? NoProfile}
-                      alt={user?.firstName}
-                      className="w-16 h-16 object-cover rounded-full"
-                    />
-                    <div className="flex-1">
-                      <p className="text-base font-medium text-ascent-1">
-                        {user?.firstName} {user?.lastName}
-                      </p>
-                      <span className="text-sm text-ascent-2">
-                        {user?.profession ?? "No Profession"}
-                      </span>
+            {search &&
+              friend &&
+              friend.length > 0 &&
+              friend
+                ?.filter(
+                  (friend) =>
+                    friend.firstName.toLowerCase() === search.toLowerCase() ||
+                    friend.lastName.toLowerCase() === search.toLowerCase()
+                )
+                .map((friend) => {
+                  return (
+                    <div
+                      className="w-full flex gap-4 items-center cursor-pointer"
+                      onClick={() => {
+                        setLoading(true);
+                        getUser(friend?._id);
+                        setUid(friend?._id);
+                        getPosts(friend?._id);
+                      }}
+                    >
+                      <img
+                        src={friend?.profileUrl ?? NoProfile}
+                        alt={friend?.firstName}
+                        className="w-16 h-16 object-cover rounded-full"
+                      />
+                      <div className="flex-1">
+                        <p className="text-base font-medium text-ascent-1">
+                          {friend?.firstName} {friend?.lastName}
+                        </p>
+                        <span className="text-sm text-ascent-2">
+                          {friend?.profession ?? t("No Profession")}
+                        </span>
+                      </div>
+                      {/* <CustomButton
+                    containerStyles="bg-blue px-3 rounded-xl py-1 text-white"
+                    tittle="Unfriend"
+                  /> */}
                     </div>
-                    <CustomButton
-                      containerStyles="bg-blue px-3 rounded-xl py-1"
-                      tittle="Unfriend"
-                    />
-                  </div>
-                );
-              }
-              return items;
-            })()} */}
+                  );
+                })}
           </div>
         </div>
         <div className="h-full w-4/5 flex flex-col items-center overflow-auto rounded-xl">

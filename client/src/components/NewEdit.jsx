@@ -522,7 +522,7 @@ const NewEdit = ({ setPage, post, onClick, setPost }) => {
                                         e.target.files[0] &&
                                           handleFileChange(e);
                                       }}
-                                      key={videoUpload ? "1" : ""}
+                                      key={videoFile ? "1" : ""}
                                       className="hidden"
                                       id="videoUpload"
                                       data-max-size="5120"
