@@ -22,7 +22,7 @@ git clone https://github.com/Z2426/Linkly
 
 #### Step 2: Navigate to the Services Directory
 ```bash
-cd services
+cd Linkly/services
 ```
 
 #### Step 3: Create the `.env` File
