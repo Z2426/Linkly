@@ -174,6 +174,7 @@ const FriendDetailSuggest = ({ title }) => {
               suggestedFriends.map((friend) => {
                 return (
                   <FriendDRq
+                    key={friend?._id}
                     friend={friend}
                     setLoading={setLoading}
                     getUser={getUser}

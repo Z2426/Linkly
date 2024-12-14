@@ -117,7 +117,9 @@ const ProfileDetail = ({ title }) => {
             <span className="text-xl font-semibold">{t("All Friends")}</span>
             <form
               className="hidden md:flex items-center justify-center gap-5"
-              onSubmit={(e) => {}}
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
 
               // handleSearch(e)
             >
