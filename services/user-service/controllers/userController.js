@@ -87,6 +87,7 @@ exports.getUserById = async (req, res) => {
       'province',
       'school',
       'address',
+      'interests'
       
     ];
     if (!mongoose.Types.ObjectId.isValid(userId)) {
