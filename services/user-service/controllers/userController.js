@@ -82,7 +82,12 @@ exports.getUserById = async (req, res) => {
       'cover_photo',
       'friends',
       'createdAt',
-      'friendRequests'
+      'friendRequests',
+      'workplace',
+      'province',
+      'school',
+      'address',
+      
     ];
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: 'Invalid user ID' });
