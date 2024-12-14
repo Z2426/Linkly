@@ -128,8 +128,15 @@ const EditFix = () => {
     seterrMsg("");
     try {
       const uri = picture && (await handFileUpload(picture));
-      const { firstName, lastName, location, profession, gender, birthDate } =
-        data;
+      const {
+        firstName,
+        lastName,
+        location,
+        profession,
+        gender,
+        birthDate,
+        address,
+      } = data;
 
       const res = await userapiRequest({
         url: "",
@@ -141,6 +148,7 @@ const EditFix = () => {
           profession,
           gender,
           birthDate,
+          address,
         },
         method: "PUT",
         token: user?.token,

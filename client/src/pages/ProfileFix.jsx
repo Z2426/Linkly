@@ -26,8 +26,7 @@ import {
 import { io } from "socket.io-client";
 import { handFileUpload } from "../until";
 import { useTranslation } from "react-i18next";
-import Login from "./Login";
-
+import { MdFavorite } from "react-icons/md";
 const UserCard = ({ token, userid, isFriend }) => {
   const [idAdd, setIsAdd] = useState(false);
   const { t } = useTranslation();
@@ -262,7 +261,7 @@ const ProfileFix = () => {
               className="select-none relative text-ascent-1 w-full rounded-xl mb-3 text-center 
             bg-primary border-b-2 border-[#66666645] flex flex-col items-start h-1/5"
             >
-              <div className="flex items-center relative bottom-16 left-7 gap-3">
+              <div className="flex items-end  relative bottom-16 left-7 gap-3">
                 <label htmlFor="imgUpload" className="cursor-pointer">
                   <img
                     src={userInfor?.profileUrl ?? NoProfile}
@@ -278,8 +277,18 @@ const ProfileFix = () => {
                     accept=".jpg, .png, .jpeg"
                   /> */}
                 </label>
-                <div className="select-none font-bold text-4xl bottom-4">
+                <div className="select-none font-bold text-4xl bottom-4 flex flex-col items-start">
                   {userInfor?.firstName} {userInfor?.lastName}
+                  <div className="select-none text-base font-normal text-ascent-2">
+                    {t("Profession") + ": " + userInfor?.profession ?? ""}
+                  </div>
+                  <div className="select-none text-base font-normal text-ascent-2">
+                    {t("Address") +
+                      ": " +
+                      (userInfor?.province ?? "") +
+                      ", " +
+                      (userInfor?.address ?? "")}
+                  </div>
                 </div>
               </div>
               <div className="absolute bottom-0 items-center h-10 shrink-0 w-full flex justify-start px-5 gap-2 border-t border-[#66666645]">
@@ -425,17 +434,17 @@ const ProfileFix = () => {
               </div>
               <div className="text-ascent-1 rounded-xl bg-primary h-fit w-1/3 px-7">
                 <div className="w-full h-fit ">
-                  <div className="w-full flex flex-col gap-2 py-4 border-b border-[#66666645]">
+                  <div className="w-full flex flex-col gap-2 py-4 ">
                     {/* <div className="flex gap-2 items-center text-ascent-2">
                       <CiLocationOn className="text-xl text-ascent-1" />
                       <span>{userInfor?.location ?? ""}</span>
                     </div> */}
 
-                    <div className="flex gap-2 items-center text-ascent-2">
+                    {/* <div className="flex gap-2 items-center text-ascent-2">
                       <BsBriefcase className="text-lg text-ascent-1" />
                       <span>{userInfor?.profession ?? ""}</span>
-                    </div>
-                    <div className="w-full flex flex-col gap-2 py-4 border-b border-[#66666645]">
+                    </div> */}
+                    <div className="w-full flex flex-col gap-2 ">
                       {/* <p className="text-xl text-ascent-1 font-semibold">
                         {userInfor?.friends?.length} {t("Friends")}
                       </p>
@@ -448,35 +457,45 @@ const ProfileFix = () => {
                         </span>
                       </div> */}
 
-                      <span className="text-base text-blue">
+                      {/* <span className="text-base text-blue">
                         {userInfor?.statusActive
                           ? t("Verified Account")
                           : "Block"}
-                      </span>
+                      </span> */}
 
-                      <div className="flex items-center justify-between">
-                        <span className="text-ascent-2">{t("Joined")}</span>
-                        <span className="text-ascent-1 text-base">
-                          {moment(userInfor?.createdAt).fromNow()}
-                        </span>
-                      </div>
-
-                      <div className="w-full flex flex-col gap-4 py-4 pb-6">
-                        <p className="text-ascent-1 text-lg font-semibold">
-                          Social Profile
+                      <div className="w-full flex flex-col gap-4 py-4 pb-6 border-b border-[#66666645]">
+                        <p className="text-ascent-1 text-lg font-semibold flex items-center">
+                          <MdFavorite className="text-xl text-ascent-1" />{" "}
+                          {" " + t("Interests")}
                         </p>
-                        <div className="flex gap-2 items-center text-ascent-2">
+                        {userInfor?.interests &&
+                          userInfor?.interests.length > 0 && (
+                            <div className="w-full flex flex-wrap gap-4 justify-center">
+                              {userInfor?.interests.map((hobby) => (
+                                <div className="shrink-0 rounded-full border-blue border px-2 py-2 w-fit">
+                                  {hobby}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        {/* <div className="flex gap-2 items-center text-ascent-2">
                           <BsInstagram className="text-xl text-ascent-1" />
                           <span>Instagram</span>
-                        </div>
-                        <div className="flex gap-2 items-center text-ascent-2">
+                        </div> */}
+                        {/* <div className="flex gap-2 items-center text-ascent-2">
                           <FaTwitterSquare className="text-xl text-ascent-1" />
                           <span>Twitter</span>
                         </div>
                         <div className="flex gap-2 items-center text-ascent-2">
                           <BsFacebook className="text-xl text-ascent-1" />
                           <span>Facebook</span>
-                        </div>
+                        </div> */}
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-ascent-2">{t("Joined")}</span>
+                        <span className="text-ascent-1 text-base">
+                          {moment(userInfor?.createdAt).fromNow()}
+                        </span>
                       </div>
                     </div>
                   </div>

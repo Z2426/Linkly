@@ -147,7 +147,7 @@ const EditProfile = () => {
         gender,
         birthDate,
         province,
-        adress,
+        address,
       } = data;
 
       const res = await userapiRequest({
@@ -159,7 +159,7 @@ const EditProfile = () => {
           profileUrl: uri ? uri : user?.profileUrl,
           profession,
           gender,
-          adress,
+          address,
           birthDate,
           interests: selecthobby,
         },
@@ -401,7 +401,7 @@ const EditProfile = () => {
                       {t("Address")}
                     </p>
                     <input
-                      {...register("adress")}
+                      {...register("address")}
                       type="text"
                       onChange={(e) => {}}
                       placeholder={t("Address")}
