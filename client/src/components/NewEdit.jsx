@@ -258,8 +258,13 @@ const NewEdit = ({ setPage, post, onClick, setPost }) => {
     if (content || file || videoUpload) {
       setPosting(true);
 
-      data.visibility = option;
-
+      // data.visibility = option;
+      if (!option == "specifiedUsers") {
+        data.visibility = option;
+      } else {
+        data.visibility = option;
+        data.specifiedUsers = [...lists];
+      }
       // await checkpost(data);
 
       try {
@@ -282,7 +287,7 @@ const NewEdit = ({ setPage, post, onClick, setPost }) => {
           // console.log(videoFile);
           datafile = { ...data, image: "", urlVideo: "" };
         }
-        const newData = { ...datafile, specifiedUsers: [] };
+        const newData = { ...datafile };
         const token = user?.token;
 
         setErr("");
@@ -613,7 +618,7 @@ const NewEdit = ({ setPage, post, onClick, setPost }) => {
                             <input
                               id="default-radio-2"
                               type="radio"
-                              value="specific"
+                              value="specifiedUsers"
                               name="auth"
                               onChange={(e) => {
                                 setOption(e.target.value);

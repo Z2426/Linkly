@@ -741,7 +741,9 @@ const Home = () => {
               {isSearch && (
                 <form
                   className="hidden md:flex items-center justify-center gap-5"
-                  // onSubmit={(e) => handleSearch(e)}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                  }}
                 >
                   {/* <TextInput
                       styles="w-full rounded-l-full py-5"

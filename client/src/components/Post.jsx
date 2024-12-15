@@ -247,7 +247,12 @@ const Post = ({ setPage }) => {
       setPosting(true);
 
       data.visibility = option;
-
+      if (!option == "specifiedUsers") {
+        data.visibility = option;
+      } else {
+        data.visibility = option;
+        data.specifiedUsers = [...lists];
+      }
       // await checkpost(data);
 
       try {
@@ -263,7 +268,7 @@ const Post = ({ setPage }) => {
         setPreview(false);
         const res = await postapiRequest({
           url: "",
-          data: { ...newData, specifiedUsers: [] },
+          data: { ...newData },
           token: user?.token,
           method: "POST",
         });
@@ -603,7 +608,7 @@ const Post = ({ setPage }) => {
                             <input
                               id="default-radio-2"
                               type="radio"
-                              value="specific"
+                              value="specifiedUsers"
                               name="auth"
                               onChange={(e) => {
                                 setOption(e.target.value);
