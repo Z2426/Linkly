@@ -20,7 +20,7 @@ const PostSchema = new mongoose.Schema({
     comments: [CommentSchema],
     visibility: {
         type: String,
-        enum: ['public', 'friends', 'private'],
+        enum: ['public', 'friends', 'private', 'specifiedUsers'],
         default: 'public'
     },
     specifiedUsers: [{
