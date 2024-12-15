@@ -259,7 +259,7 @@ const ProfileFix = () => {
 
             <div
               className="select-none relative text-ascent-1 w-full rounded-xl mb-3 text-center 
-            bg-primary border-b-2 border-[#66666645] flex flex-col items-start h-1/5"
+            bg-primary border-b-2 border-[#66666645] flex flex-col items-start h-1/4"
             >
               <div className="flex items-end  relative bottom-16 left-7 gap-3">
                 <label htmlFor="imgUpload" className="cursor-pointer">
