@@ -11,7 +11,7 @@ export const API = axios.create({
 
 export const postapiRequest = async ({ url, token, data, method }) => {
   try {
-    // console.log(url, token, data, method);
+    console.log(data);
     const result = await API(url, {
       method: method || "GET",
       data: data,

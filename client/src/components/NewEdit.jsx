@@ -665,7 +665,7 @@ const NewEdit = ({ setPage, post, onClick, setPost }) => {
                             <input
                               id="default-radio-4"
                               type="radio"
-                              value="only me"
+                              value="private"
                               name="auth"
                               onChange={(e) => {
                                 setOption(e.target.value);
