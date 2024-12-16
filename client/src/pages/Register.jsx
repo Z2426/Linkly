@@ -35,13 +35,16 @@ const Register = () => {
         method: "POST",
       });
 
-      if (res?.status == 500) {
-        setErrMsg(res);
+      console.log(res);
+
+      if (res?.status !== 201) {
+        setErrMsg({ ...res, status: 500 });
       } else {
         setErrMsg(res?.data);
-        setTimeout(() => {
-          window.location.replace("/login");
-        }, 5000);
+        // setTimeout(() => {
+        //   window.location.replace("/login");
+        // }, 3000);
+        window.location.replace("/login");
       }
 
       setIsSubmitting(false);
