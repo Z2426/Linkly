@@ -222,9 +222,9 @@ const ProfileFix = () => {
     getFriend();
   }, []);
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     getUser();
-  }, [id]);
+  }, [id, user]);
 
   return (
     <div className="home w-full bg-bgColor text-ascent-1 overflow-hidden lg:rounded-lg h-screen items-center px-0 lg:px-10">
