@@ -32,9 +32,8 @@ const createSocketServer = (server) => {
     redisSubscriber.subscribe("notification", (message) => {
       try {
         const notification = JSON.parse(message);
-        console.log(message);
         if (notification && notification.userId) {
-          io.to(notification.reciveId).emit(
+          io.emit(
             "receiveNotification",
             notification
           );
