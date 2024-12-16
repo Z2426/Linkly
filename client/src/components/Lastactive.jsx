@@ -30,6 +30,7 @@ const Lastactive = () => {
     fetchNotification();
     socket.on("receiveNotification", (notification) => {
       fetchNotification();
+      console.log(notification);
     });
   }, []);
   return (

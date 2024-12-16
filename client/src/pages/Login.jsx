@@ -36,6 +36,8 @@ const Login = () => {
         method: "POST",
       });
 
+      console.log(res);
+
       if (res?.data?.message == "Login success") {
         seterrMsg("");
 

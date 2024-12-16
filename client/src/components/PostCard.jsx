@@ -117,7 +117,7 @@ const CommentForm = ({ user, postid, id, post, replyAt, getComments }) => {
           await getComments();
         }
       } else {
-        setErrMsg("Sensitive");
+        setErrMsg(t("Sensitive"));
       }
 
       setLoading(false);

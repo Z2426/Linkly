@@ -16,6 +16,9 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     socket.emit("userOnline", { userId });
     socket.emit("joinGroup", { userId, groupId: userId });
+    socket.on("receiveNotification", (notification) => {
+      console.log(notification);
+    });
     return () => {
       socket.emit("userOffline", { userId });
       socket.disconnect();

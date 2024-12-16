@@ -666,6 +666,7 @@ const Home = () => {
 
               <div className="w-full flex flex-col gap-4 pt-4 h-full overflow-auto">
                 {friendRequest &&
+                  friendRequest.length > 0 &&
                   friendRequest?.map(({ _id, sender }) => (
                     <div
                       key={sender?._id}
