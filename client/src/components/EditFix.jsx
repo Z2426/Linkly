@@ -169,8 +169,8 @@ const EditFix = () => {
         }, 3000);
       }
       setisSubmitting(false);
-
-      window.location.reload();
+      handleClose();
+      // window.location.reload();
     } catch (error) {
       console.log(error);
       setisSubmitting(false);
