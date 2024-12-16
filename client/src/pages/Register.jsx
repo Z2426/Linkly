@@ -35,8 +35,6 @@ const Register = () => {
         method: "POST",
       });
 
-      console.log(res);
-
       if (res?.status !== 201) {
         setErrMsg({ ...res, status: 500 });
       } else {

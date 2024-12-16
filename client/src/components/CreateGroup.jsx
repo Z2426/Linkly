@@ -63,13 +63,14 @@ const CreateGroup = ({ fetchList, setCreatg }) => {
         if (name) {
           if (description) {
             if (listAdd.length > 1) {
-              await createGroup(
+              const res = await createGroup(
                 user?.token,
                 userId,
                 name,
                 description,
                 listAdd
               );
+
               fetchList();
               setCreatg(false);
             }
@@ -236,9 +237,13 @@ const CreateGroup = ({ fetchList, setCreatg }) => {
           </div>
 
           <div className="w-full flex justify-end">
+            <div className="w-full flex justify-center items-center text-ascent-2">
+              {t("At least 2 people")}
+            </div>
+
             <CustomButton
               tittle={t("Submit")}
-              containerStyles="bg-blue w-fit px-2 py-2 rounded-xl text-white"
+              containerStyles="bg-blue w-fit px-5 py-2 rounded-xl text-white"
               onClick={creatGrp}
             />
           </div>
