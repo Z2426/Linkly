@@ -32,12 +32,22 @@ const createSocketServer = (server) => {
     redisSubscriber.subscribe("notification", (message) => {
       try {
         const notification = JSON.parse(message);
-        if (notification ) {
+        if (notification && notification.userId) {
           io.to(notification.reciveId).emit("receiveNotification", notification);
           console.log(
-            `Notification sent to user ${notification.userId}:`,
+            `Notification sent to user ${notification.reciveId}:`,
             notification.message
           );
+        }
+      } catch (error) {
+        console.error("Error handling Redis message:", error);
+      }
+    });
+    redisSubscriber.subscribe("updateSuggestFriend", (message) => {
+      try {
+        const data = JSON.parse(message);
+        if (data) {
+          io.to(data.reciveId).emit("receiveNotification", data);
         }
       } catch (error) {
         console.error("Error handling Redis message:", error);
@@ -95,10 +105,10 @@ const createSocketServer = (server) => {
         return;
       }
       try {
-        console.log(`User ${userId} joining group ${groupId}`);
+        // console.log(`User ${userId} joining group ${groupId}`);
         await addUserToGroup(userId, groupId);
         socket.join(groupId);
-        console.log(`User ${userId} joined group ${groupId}`);
+        console.log(`User ${userId} joined group  ${groupId}`);
       } catch (error) {
         console.error("Error in joinGroup:", error);
       }
