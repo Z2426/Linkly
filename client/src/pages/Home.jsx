@@ -259,6 +259,10 @@ const Home = () => {
         Cookies.set("message", res?.message, { expires: 7 });
         navigate("/error");
       }
+      socket.emit("sendMessage", {
+        idConversation: "friend_suggest_request",
+        message: id,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -413,6 +417,13 @@ const Home = () => {
 
     fetchFriendRequest();
     fetchSuggestFriends();
+  }, []);
+
+  useEffect(() => {
+    socket &&
+      socket.on("receiveMessage", (data) => {
+        console.log(data);
+      });
   }, []);
 
   // useEffect(() => {

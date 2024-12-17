@@ -16,6 +16,7 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     socket.emit("userOnline", { userId });
     socket.emit("joinGroup", { userId, groupId: userId });
+    socket.emit("joinGroup", { userId, groupId: "friend_suggest_request" });
     socket.on("receiveNotification", (notification) => {
       console.log(notification);
     });
@@ -23,7 +24,7 @@ export const SocketProvider = ({ children }) => {
       socket.emit("userOffline", { userId });
       socket.disconnect();
     };
-  }, []);
+  }, [userId]);
 
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

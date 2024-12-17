@@ -74,7 +74,7 @@ const ResetPassword = () => {
                   : "text-[#f64949fe] "
               } mt-0.5`}
             >
-              {errMsg?.message}
+              {t(errMsg?.message)}
             </span>
           )}
 
