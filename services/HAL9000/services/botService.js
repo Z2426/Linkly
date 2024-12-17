@@ -29,6 +29,7 @@ exports.aiRequestHandler = async (prompt) => {
             case 'find_person':
                 result.type = "find person";
                 const criteria = processInputFindUser(filteredEntities)
+                console.log(criteria)
                 result.info = await findUser(criteria)
                 break;
             case 'text_prompt':

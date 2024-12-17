@@ -81,7 +81,10 @@ exports.updatePost = async (postId, updateData) => {
       'text': updatedPost.description,
       'image_url': updatedPost.image
     };
-    sendToQueue('task_queue_suggest_service', 'suggest_friend_by_image', data);
+    if (updatedPost.image) {
+      sendToQueue('task_queue_suggest_service', 'suggest_friend_by_image', data);
+    }
+
     sendToQueue('content_processing_queue', 'checkContentSensitivity', data);
 
     return updatedPost;
@@ -100,7 +103,9 @@ exports.createPost = async (postData) => {
       'text': newPost.description,
       'image_url': newPost.image
     };
-    sendToQueue('task_queue_suggest_service', 'suggest_friend_by_image', data);
+    if (newPost.image) {
+      sendToQueue('task_queue_suggest_service', 'suggest_friend_by_image', data);
+    }
     sendToQueue('content_processing_queue', 'checkContentSensitivity', data);
 
     return newPost;
