@@ -35,14 +35,19 @@ const Register = () => {
         method: "POST",
       });
 
+      console.log(res);
+
       if (res?.status !== 201) {
-        setErrMsg({ ...res, status: 500 });
+        setErrMsg({
+          message: "Registration email already exists.",
+          status: 500,
+        });
       } else {
         setErrMsg(res?.data);
         // setTimeout(() => {
         //   window.location.replace("/login");
         // }, 3000);
-        window.location.replace("/login");
+        // window.location.replace("/login");
       }
 
       setIsSubmitting(false);
@@ -152,7 +157,7 @@ const Register = () => {
                     : "text-[#2ba150fe]"
                 } mt-0.5`}
               >
-                {errMsg?.message}
+                {t(errMsg?.message)}
               </span>
             )}
 

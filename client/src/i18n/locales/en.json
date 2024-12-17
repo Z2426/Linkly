@@ -209,5 +209,8 @@
   "Sensitive": "Sensitive",
   "User not found": "User not found",
   "Password reset have send email  successful": "Password reset have send email successful",
-  "Gender is required!": "Gender is required!"
+  "Gender is required!": "Gender is required!",
+  "Login information is incorrect.": "Login information is incorrect.",
+  "Registration email already exists.": "Registration email already exists.",
+  "User registered successfully!": "User registered successfully!"
 }

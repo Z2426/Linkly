@@ -36,7 +36,7 @@ const Login = () => {
         method: "POST",
       });
 
-      console.log(res);
+      // console.log(res);
 
       if (res?.data?.message == "Login success") {
         seterrMsg("");
@@ -46,7 +46,7 @@ const Login = () => {
         dispatch(UserLogin(newData));
         window.location.replace("/");
       } else {
-        seterrMsg(res);
+        seterrMsg({ message: "Login information is incorrect." });
       }
       setIsSubmitting(false);
     } catch (error) {
@@ -128,7 +128,7 @@ const Login = () => {
                 //     : "text-[#2ba150fe]"
                 // } mt-0.5`}
               >
-                {errMsg?.message}
+                {t(errMsg?.message)}
               </span>
             )}
 

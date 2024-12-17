@@ -18,6 +18,7 @@ import {
 } from "../until/user";
 import { io } from "socket.io-client";
 import { useTranslation } from "react-i18next";
+import { useSocket } from "../context/SocketContext";
 const Friend = () => {
   const [right, setRight] = useState(false);
   const [left, setLeft] = useState(true);
@@ -28,6 +29,7 @@ const Friend = () => {
   const [friendRequest, setfriendRequest] = useState([]);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const socket = useSocket();
   const check = () => {
     let position = document.getElementById("request");
     let position2 = document.getElementById("fr");
@@ -121,6 +123,15 @@ const Friend = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    socket &&
+      socket.on("receiveMessage", (data) => {
+        if (data?.message == user?._id) {
+          fetchFriendRequest();
+        }
+      });
+  }, []);
 
   useEffect(() => {
     scrollhidde();

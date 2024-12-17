@@ -153,6 +153,7 @@ const Post = ({ setPage }) => {
     setReview(resImg);
 
     setPreview(true);
+    setSuggestpost(false);
   };
 
   const handlerenew = () => {
@@ -935,6 +936,7 @@ const Post = ({ setPage }) => {
                             className="text-ascent-2 border rounded-lg border-[#66666690] px-1 py-1 flex justify-center items-center"
                             onClick={() => {
                               setContent(resText);
+                              setSuggestpost(false);
                             }}
                           >
                             <FaRegCopy />

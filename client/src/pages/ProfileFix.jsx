@@ -27,15 +27,20 @@ import { io } from "socket.io-client";
 import { handFileUpload } from "../until";
 import { useTranslation } from "react-i18next";
 import { MdFavorite } from "react-icons/md";
+import { useSocket } from "../context/SocketContext";
 const UserCard = ({ token, userid, isFriend }) => {
   const [idAdd, setIsAdd] = useState(false);
   const { t } = useTranslation();
   const [userinfor, setUserinfo] = useState();
   // console.log(isFriend);
-
+  const socket = useSocket();
   const handleFriendRequest = async (userid) => {
     try {
       const res = await usersendFriendRequest(token, userid);
+      socket.emit("sendMessage", {
+        idConversation: "friend_suggest_request",
+        message: userid,
+      });
     } catch (error) {
       console.log(error);
     }

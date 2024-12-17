@@ -14,15 +14,19 @@ import {
   usersendFriendRequest,
 } from "../until/user";
 import { useTranslation } from "react-i18next";
+import { useSocket } from "../context/SocketContext";
 
 const UserCard = ({ token, user, isFriend }) => {
-  console.log(isFriend);
-
+  const socket = useSocket();
   const [idAdd, setIsAdd] = useState(false);
   const { t } = useTranslation();
   const handleFriendRequest = async (id) => {
     try {
       const res = await usersendFriendRequest(token, id);
+      socket.emit("sendMessage", {
+        idConversation: "friend_suggest_request",
+        message: id,
+      });
     } catch (error) {
       console.log(error);
     }
