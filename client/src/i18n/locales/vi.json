@@ -208,5 +208,8 @@
   "Sensitive": "Nội dung nhạy cảm",
   "User not found": "Không tìm thấy người dùng",
   "Password reset have send email  successful": "Mật khẩu mới đã được gửi đến email",
-  "Gender is required!": "Giới tính là bắt buộc!"
+  "Gender is required!": "Giới tính là bắt buộc!",
+  "Login information is incorrect.": "Thông tin đăng nhập không chính xác.",
+  "Registration email already exists.": "Email dùng để đăng ký đã được sử dụng",
+  "User registered successfully!": "Đăng ký thành công!"
 }
