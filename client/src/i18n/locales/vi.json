@@ -207,5 +207,6 @@
   "At least 2 people": "Tối thiểu 2 người",
   "Sensitive": "Nội dung nhạy cảm",
   "User not found": "Không tìm thấy người dùng",
-  "Password reset have send email  successful": "Mật khẩu mới đã được gửi đến email"
+  "Password reset have send email  successful": "Mật khẩu mới đã được gửi đến email",
+  "Gender is required!": "Giới tính là bắt buộc!"
 }

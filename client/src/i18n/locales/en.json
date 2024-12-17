@@ -208,5 +208,6 @@
   "At least 2 people": "At least 2 people",
   "Sensitive": "Sensitive",
   "User not found": "User not found",
-  "Password reset have send email  successful": "Password reset have send email successful"
+  "Password reset have send email  successful": "Password reset have send email successful",
+  "Gender is required!": "Gender is required!"
 }

@@ -422,7 +422,9 @@ const Home = () => {
   useEffect(() => {
     socket &&
       socket.on("receiveMessage", (data) => {
-        console.log(data);
+        if (data?.message == user?._id) {
+          fetchFriendRequest();
+        }
       });
   }, []);
 

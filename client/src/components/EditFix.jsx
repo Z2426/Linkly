@@ -364,7 +364,9 @@ const EditFix = () => {
                       {t("Gender")}
                     </p>
                     <select
-                      {...register("gender")}
+                      {...register("gender", {
+                        required: t("Gender is required!"),
+                      })}
                       className="text-ascent-1 w-full bg-secondary rounded border border-[#66666690] px-4 py-3"
                     >
                       <option selected value="male">
@@ -373,6 +375,11 @@ const EditFix = () => {
                       <option value="female">{t("Female")}</option>
                       <option value="other">{t("Orther")}</option>
                     </select>
+                    {errors.gender && (
+                      <span className="text-xs text-[#f64949fe] mt-0.5 ">
+                        {errors.gender?.message}
+                      </span>
+                    )}
                   </div>
                   <div className="w-1/2">
                     <p className={`text-ascent-2 text-sm mb-2`}>{t("Date")}</p>
