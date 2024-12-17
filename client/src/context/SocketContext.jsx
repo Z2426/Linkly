@@ -17,9 +17,9 @@ export const SocketProvider = ({ children }) => {
     socket.emit("userOnline", { userId });
     socket.emit("joinGroup", { userId, groupId: userId });
     socket.emit("joinGroup", { userId, groupId: "friend_suggest_request" });
-    socket.on("receiveNotification", (notification) => {
-      console.log(notification);
-    });
+    // socket.on("receiveNotification", (notification) => {
+    //   console.log(notification);
+    // });
     return () => {
       socket.emit("userOffline", { userId });
       socket.disconnect();
