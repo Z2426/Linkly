@@ -8,10 +8,12 @@ import Cookies from "js-cookie";
 
 import { usersendFriendRequest } from "../until/user";
 import { useTranslation } from "react-i18next";
+import { useSocket } from "../context/SocketContext";
 const FriendCardSuggest = ({ user, fetchSuggestFriends, friend }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [sended, setSended] = useState(false);
+  const socket = useSocket();
   // const handleFriendRequest = async (id) => {
   //   try {
   //     const res = await sendFriendRequest(user.token, id);
@@ -29,6 +31,10 @@ const FriendCardSuggest = ({ user, fetchSuggestFriends, friend }) => {
   const handleFriendRequest = async (id) => {
     try {
       const res = await usersendFriendRequest(user.token, id);
+      socket.emit("sendMessage", {
+        idConversation: "friend_suggest_request",
+        message: id,
+      });
       await fetchSuggestFriends();
       if (res?.status === "failed") {
         Cookies.set("message", res?.message, { expires: 7 });

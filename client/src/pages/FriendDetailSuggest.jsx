@@ -36,6 +36,7 @@ import {
 import { postfetchuserPosts, postlikePost } from "../until/post";
 import { io } from "socket.io-client";
 import { useTranslation } from "react-i18next";
+import { useSocket } from "../context/SocketContext";
 const FriendDetailSuggest = ({ title }) => {
   const { id, key } = useParams();
   const [friend, setFriend] = useState();
@@ -45,6 +46,7 @@ const FriendDetailSuggest = ({ title }) => {
   const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+  const socket = useSocket();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [userInfor, setUserInfor] = useState();
@@ -115,6 +117,10 @@ const FriendDetailSuggest = ({ title }) => {
   const handleFriendRequest = async (id) => {
     try {
       const res = await usersendFriendRequest(user.token, id);
+      socket.emit("sendMessage", {
+        idConversation: "friend_suggest_request",
+        message: id,
+      });
       await fetchSuggestFriends();
       if (res?.status === "failed") {
         Cookies.set("message", res?.message, { expires: 7 });

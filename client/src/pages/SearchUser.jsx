@@ -11,13 +11,19 @@ import { io } from "socket.io-client";
 import { botsuggestsearchRequest } from "../until/bot";
 import { usergetUserInfo, usersendFriendRequest } from "../until/user";
 import { useTranslation } from "react-i18next";
+import { useSocket } from "../context/SocketContext";
 
 const UserCard = ({ token, user, isFriend }) => {
   const [idAdd, setIsAdd] = useState(false);
   const { t } = useTranslation();
+  const socket = useSocket();
   const handleFriendRequest = async (id) => {
     try {
       const res = await usersendFriendRequest(token, id);
+      socket.emit("sendMessage", {
+        idConversation: "friend_suggest_request",
+        message: id,
+      });
     } catch (error) {
       console.log(error);
     }
