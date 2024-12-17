@@ -32,12 +32,16 @@ const createSocketServer = (server) => {
     redisSubscriber.subscribe("notification", (message) => {
       try {
         const notification = JSON.parse(message);
-        if (notification && notification.userId) {
+        if (notification) {
+          // console.log(
+          //   `Notification sent to user ${notification.reciveId}:`,
+          //   notification.message
+          // );
           io.to(notification.reciveId).emit("receiveNotification", notification);
-          console.log(
-            `Notification sent to user ${notification.reciveId}:`,
-            notification.message
-          );
+          // console.log(
+          //   `Notification sent to user ${notification.userId}:`,
+          //   notification.message
+          // );
         }
       } catch (error) {
         console.error("Error handling Redis message:", error);
@@ -47,12 +51,13 @@ const createSocketServer = (server) => {
       try {
         const data = JSON.parse(message);
         if (data) {
-          io.to(data.reciveId).emit("receiveNotification", data);
+          io.to(data.reciveId).emit("updateSuggestFriend", data);
         }
       } catch (error) {
         console.error("Error handling Redis message:", error);
       }
     });
+
 
     socket.on("userOnline", async ({ userId }) => {
       if (!userId) {
@@ -105,10 +110,10 @@ const createSocketServer = (server) => {
         return;
       }
       try {
-        // console.log(`User ${userId} joining group ${groupId}`);
+        console.log(`User ${userId} joining group ${groupId}`);
         await addUserToGroup(userId, groupId);
         socket.join(groupId);
-        console.log(`User ${userId} joined group  ${groupId}`);
+        console.log(`User ${userId} joined group ${groupId}`);
       } catch (error) {
         console.error("Error in joinGroup:", error);
       }
@@ -168,4 +173,3 @@ const createSocketServer = (server) => {
 };
 
 module.exports = createSocketServer;
-

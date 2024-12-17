@@ -53,7 +53,7 @@ def process_task(task):
             logging.info(f"Processing friend suggestion by image for task {task_id}")
             suggestion_result = suggest_friend_logic(user_id, image)  # Logic đề xuất bạn bè
             result_with_user_id = {
-                "user_id": user_id,
+                "reciveId": user_id,
                 "suggestion_result": suggestion_result
             }
             logging.info(f"Friend suggestion result: {result_with_user_id}")
