@@ -25,6 +25,7 @@ import {
 import { postfetchuserPosts, postlikePost } from "../until/post";
 import { io } from "socket.io-client";
 import { useTranslation } from "react-i18next";
+import { useSocket } from "../context/SocketContext";
 const FriendDetailRequest = ({ title }) => {
   const { id, key } = useParams();
   const [friend, setFriend] = useState();
@@ -39,6 +40,7 @@ const FriendDetailRequest = ({ title }) => {
   const [suggestedFriends, setsuggestedFriends] = useState();
   const [userInfor, setUserInfor] = useState();
   const [banner, setBanner] = useState(user?.profileUrl ?? NoProfile);
+  const socket = useSocket();
   const navigate = useNavigate();
   const handleDelete = async (id) => {
     await deletePost(id, user.token);
@@ -191,7 +193,14 @@ const FriendDetailRequest = ({ title }) => {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    socket &&
+      socket.on("receiveMessage", (data) => {
+        if (data?.message == user?._id) {
+          fetchFriendRequest();
+        }
+      });
+  }, []);
   useEffect(() => {
     setLoading(true);
     getUser(user?._id);
