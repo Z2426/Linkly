@@ -151,8 +151,9 @@ lg:rounded-lg h-screen overflow-hidden"
                   <div className="w-full h-fit flex gap-2 flex-wrap justify-center">
                     <div className="w-full h-fit flex flex-col items-center justify-center shrink-0">
                       {loading ? (
-                        <div className="w-full h-full">
+                        <div className="w-full h-full text-ascent-2 flex justify-center items-center flex-col">
                           <Loading />
+                          Loading
                         </div>
                       ) : (
                         <div className="w-full grid grid-cols-2 gap-4 ">
