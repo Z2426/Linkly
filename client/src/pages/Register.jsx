@@ -47,7 +47,7 @@ const Register = () => {
         // setTimeout(() => {
         //   window.location.replace("/login");
         // }, 3000);
-        // window.location.replace("/login");
+        window.location.replace("/login");
       }
 
       setIsSubmitting(false);
