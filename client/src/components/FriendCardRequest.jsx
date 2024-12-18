@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { useracceptFriendRequest, usergetUserpInfo } from "../until/user";
 import { useTranslation } from "react-i18next";
 const FriendCardRequest = ({ user, fetchFriendRequest, friend }) => {
-  // console.log(title);
+  console.log(friend);
 
   const [userr, setUserr] = useState();
   const { t } = useTranslation();

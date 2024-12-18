@@ -248,7 +248,10 @@ lg:rounded-lg h-screen overflow-hidden"
                     </div> */}
 
                     {friendRequest?.map((friend) => (
-                      <div className=" overflow-hidden shrink-0">
+                      <div
+                        key={friend?._id}
+                        className=" overflow-hidden shrink-0"
+                      >
                         <FriendCardRequest
                           user={user}
                           fetchFriendRequest={fetchFriendRequest}
@@ -308,7 +311,7 @@ lg:rounded-lg h-screen overflow-hidden"
                           )}
                       {suggestedFriends && suggestedFriends.length == 0 && (
                         <div className="w-full h-1/2">
-                          <div className="w-full h-full bg-primary rounded-2xl flex items-center justify-center text-ascent-2">
+                          <div className="w-full h-full bg-primary rounded-2xl flex items-center justify-center text-ascent-2 ">
                             {t("Not found")}
                           </div>
                         </div>
