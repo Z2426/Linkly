@@ -1337,7 +1337,7 @@ const Chat = () => {
   const [createg, setCreatg] = useState(false);
   const [manageru, setManageru] = useState(false);
   const [block, setBlock] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const [listsuggest, setListsuggest] = useState();
 
   const [listchat, setListchat] = useState([]);
@@ -1375,7 +1375,7 @@ const Chat = () => {
       const userId = user?._id;
       const res = await chatfetchListpersonal(user?.token, userId);
       // console.log(res);
-
+      setLoading(false);
       if (res?.message == "Conversation not found") {
         setListchat([]);
       } else {
@@ -1596,6 +1596,7 @@ const Chat = () => {
               )}
 
               <div className="w-full h-2/3 gap-3 flex flex-col pt-2">
+                {loading && <Loading />}
                 {type == "inbox" &&
                   listchat &&
                   listchat.length > 0 &&

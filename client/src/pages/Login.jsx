@@ -144,7 +144,7 @@ const Login = () => {
           </form>
 
           <p className="text-ascent-2 text-sm text-center">
-            (t{"Don't have am account?"})
+            {t("Don't have am account?")}
             <Link
               to="/register"
               className="text-[#065ad8] font-semibold ml-2 curson-pointer"
