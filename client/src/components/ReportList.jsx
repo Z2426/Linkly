@@ -212,69 +212,71 @@ const Reportlist = ({ user, sl }) => {
               })} */}
             {!sl &&
               listreport &&
-              listreport.map((report) => (
-                <tr key={report.postId}>
-                  <th
-                    onClick={() => {
-                      nevigate(`/post/${report.postId}`);
-                    }}
-                    className="border border-[#66666645] py-2 px-3 underline underline-offset-2 cursor-pointer w-1/5"
-                  >
-                    {/* {report.postId} */}
-                    {report.username} <br />
-                    {t("Create At")}: {report.createdAt}
-                  </th>
-                  <th className="border border-[#66666645] py-2 px-3 w-1/12">
-                    {report.reportCount}
-                  </th>
-                  <th className="border border-[#66666645] py-2 px-3 text-wrap  ">
-                    {report && report.reasons.map((rp) => rp + ", ")}
-                  </th>
-                  <th className="select-none  border border-[#66666645] py-2 px-3">
-                    <div className="flex justify-center gap-2">
-                      <div
-                        onClick={() => {
-                          handlereportapprove(report.postId);
-                        }}
-                        className="px-4 rounded-lg py-1 bg-blue cursor-pointer text-white"
-                      >
-                        {t("Approve")}
-                      </div>
-                      <div
-                        onClick={() => {
-                          handlereportdelete(report.postId);
-                        }}
-                        className="px-4 rounded-lg py-1 bg-[#ff0015b2] cursor-pointer text-white"
-                      >
-                        {t("Delete")}
-                      </div>
-                    </div>
-                  </th>
-                  <th className="select-none  border border-[#66666645] py-2 px-3">
-                    <div className="flex justify-center gap-2">
-                      {report?.statusActive ? (
+              listreport.map((report) => {
+                return (
+                  <tr key={report.postId}>
+                    <th
+                      onClick={() => {
+                        nevigate(`/post/${report.postId}`);
+                      }}
+                      className="border border-[#66666645] py-2 px-3 underline underline-offset-2 cursor-pointer w-1/5"
+                    >
+                      {/* {report.postId} */}
+                      {report.username} <br />
+                      {t("Create At")}: {report.createdAt}
+                    </th>
+                    <th className="border border-[#66666645] py-2 px-3 w-1/12">
+                      {report.reportCount}
+                    </th>
+                    <th className="border border-[#66666645] py-2 px-3 text-wrap  ">
+                      {report && report.reasons.map((rp) => rp + ", ")}
+                    </th>
+                    <th className="select-none  border border-[#66666645] py-2 px-3">
+                      <div className="flex justify-center gap-2">
                         <div
                           onClick={() => {
-                            changeActiveuser(report.userId);
+                            handlereportapprove(report.postId);
                           }}
-                          className="px-4 rounded-lg py-1 bg-[#0444a4] cursor-pointer text-white"
+                          className="px-4 rounded-lg py-1 bg-blue cursor-pointer text-white"
                         >
-                          {t("Block")}
+                          {t("Approve")}
                         </div>
-                      ) : (
                         <div
                           onClick={() => {
-                            changeActiveuser(report.userId);
+                            handlereportdelete(report.postId);
                           }}
                           className="px-4 rounded-lg py-1 bg-[#ff0015b2] cursor-pointer text-white"
                         >
-                          {t("Unlock")}
+                          {t("Delete")}
                         </div>
-                      )}
-                    </div>
-                  </th>
-                </tr>
-              ))}
+                      </div>
+                    </th>
+                    <th className="select-none  border border-[#66666645] py-2 px-3">
+                      <div className="flex justify-center gap-2">
+                        {report?.statusActive ? (
+                          <div
+                            onClick={() => {
+                              changeActiveuser(report.userId);
+                            }}
+                            className="px-4 rounded-lg py-1 bg-[#0444a4] cursor-pointer text-white"
+                          >
+                            {t("Block")}
+                          </div>
+                        ) : (
+                          <div
+                            onClick={() => {
+                              changeActiveuser(report.userId);
+                            }}
+                            className="px-4 rounded-lg py-1 bg-[#ff0015b2] cursor-pointer text-white"
+                          >
+                            {t("Unlock")}
+                          </div>
+                        )}
+                      </div>
+                    </th>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       )}

@@ -287,42 +287,30 @@ lg:rounded-lg h-screen overflow-hidden"
                 <div className="flex justify-center items-center flex-col w-full h-full">
                   <div className="w-[90%] h-full ">
                     <div className="w-full h-full flex gap-2 flex-wrap">
-                      {!loading &&
-                      suggestedFriends &&
-                      suggestedFriends.length > 0 ? (
-                        suggestedFriends.map((friend, index) => {
-                          return (
-                            <div key={index} className="w-44 h-fit">
-                              <FriendCardSuggest
-                                user={user}
-                                fetchSuggestFriends={fetchSuggestFriends}
-                                friend={friend}
-                              />
+                      {suggestedFriends && suggestedFriends.length > 0
+                        ? suggestedFriends.map((friend, index) => {
+                            return (
+                              <div key={index} className="w-44 h-fit">
+                                <FriendCardSuggest
+                                  user={user}
+                                  fetchSuggestFriends={fetchSuggestFriends}
+                                  friend={friend}
+                                />
+                              </div>
+                            );
+                          })
+                        : loading && (
+                            <div className="w-full h-1/2">
+                              <div className="w-full h-full bg-primary rounded-2xl ">
+                                <Loading />
+                              </div>
                             </div>
-                          );
-                        })
-                      ) : (
+                          )}
+                      {suggestedFriends && suggestedFriends.length == 0 && (
                         <div className="w-full h-1/2">
-                          <div className="w-full h-full bg-primary rounded-2xl ">
-                            <Loading />
+                          <div className="w-full h-full bg-primary rounded-2xl flex items-center justify-center text-ascent-2">
+                            {t("Not found")}
                           </div>
-                          {/* <div className="w-full h-fit flex gap-2 flex-wrap">
-                          {(() => {
-                            const items = [];
-                            for (let i = 0; i < 10; i++) {
-                              items.push(
-                                <div className="w-44 h-fit">
-                                  <FriendCardRequest
-                                    key={i}
-                                    friend={user}
-                                    title={t("Add")}
-                                  />
-                                </div>
-                              );
-                            }
-                            return items;
-                          })()}
-                        </div> */}
                         </div>
                       )}
                     </div>
