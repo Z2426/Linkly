@@ -213,5 +213,6 @@
   "Login information is incorrect.": "Login information is incorrect.",
   "Registration email already exists.": "Registration email already exists.",
   "User registered successfully!": "User registered successfully!",
-  "None": "None"
+  "None": "None",
+  "Not found": "Not found"
 }

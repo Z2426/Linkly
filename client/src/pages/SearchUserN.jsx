@@ -92,7 +92,7 @@ const UserCard = ({ token, user, isFriend }) => {
 const SearchUserN = () => {
   const { keyword } = useParams();
   const [key, setKey] = useState(`${keyword}`);
-
+  const { t } = useTranslation();
   const { user, edit } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -156,7 +156,7 @@ lg:rounded-lg h-screen overflow-hidden"
                         </div>
                       ) : (
                         <div className="w-full grid grid-cols-2 gap-4 ">
-                          {listUser &&
+                          {listUser && listUser.length > 0 ? (
                             listUser.map((users) => {
                               return (
                                 <UserCard
@@ -166,7 +166,10 @@ lg:rounded-lg h-screen overflow-hidden"
                                   isFriend={friends?.includes(users?._id)}
                                 />
                               );
-                            })}
+                            })
+                          ) : (
+                            <div>{t("Not found")}</div>
+                          )}
                         </div>
                       )}
                     </div>
