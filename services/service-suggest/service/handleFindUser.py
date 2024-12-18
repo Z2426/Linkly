@@ -92,7 +92,7 @@ def search_in_group(image, threshold):
     return detected_users
 
 # Suggest friends based on detected users and avoid blocked/friends users
-def suggest_friend_logic(current_user_id, image, threshold=0.6):
+def suggest_friend_logic(current_user_id, image, threshold=0.7):
     detected_users = search_in_group(image, threshold)
     blocked_users, friends = get_user_data(current_user_id)
     # Filter out blocked and already friends users from the detected list
