@@ -7,7 +7,7 @@ const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
   const { user } = useSelector((state) => state.user);
-  const socket = io("ws://localhost:3005", {
+  const socket = io(process.env.REACT_APP_WS_SERVICE, {
     reconnection: true,
     transports: ["websocket"],
   });
