@@ -132,6 +132,13 @@ const FriendDetailSuggest = ({ title }) => {
   };
 
   useEffect(() => {
+    if (socket) {
+      socket.on("updateSuggestFriend", (data) => {
+        fetchSuggestFriends();
+      });
+    }
+  }, []);
+  useEffect(() => {
     setLoading(true);
     fetchSuggestFriends();
     getUser(user?._id);

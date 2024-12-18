@@ -420,12 +420,16 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    socket &&
+    if (socket) {
       socket.on("receiveMessage", (data) => {
         if (data?.message == user?._id) {
           fetchFriendRequest();
         }
       });
+      socket.on("updateSuggestFriend", (data) => {
+        fetchSuggestFriends();
+      });
+    }
   }, []);
 
   // useEffect(() => {
