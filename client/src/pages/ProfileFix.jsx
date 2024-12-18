@@ -285,14 +285,21 @@ const ProfileFix = () => {
                 <div className="select-none font-bold text-4xl bottom-4 flex flex-col items-start">
                   {userInfor?.firstName} {userInfor?.lastName}
                   <div className="select-none text-base font-normal text-ascent-2">
-                    {t("Profession") + ": " + userInfor?.profession ?? ""}
+                    {t("Profession") +
+                      ": " +
+                      (userInfor?.profession
+                        ? userInfor?.profession
+                        : t("None"))}
                   </div>
                   <div className="select-none text-base font-normal text-ascent-2">
-                    {t("Address") +
-                      ": " +
-                      (userInfor?.province ?? "") +
-                      ", " +
-                      (userInfor?.address ?? "")}
+                    {userInfor?.address || userInfor?.province
+                      ? t("Address") +
+                        ": " +
+                        (userInfor?.province
+                          ? userInfor?.province + ", "
+                          : "") +
+                        (userInfor?.address ? userInfor?.address : "")
+                      : t("Address") + ": " + t("None")}
                   </div>
                 </div>
               </div>
