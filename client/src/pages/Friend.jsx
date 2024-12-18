@@ -27,6 +27,7 @@ const Friend = () => {
   const [suggestedFriends, setsuggestedFriends] = useState([]);
   const [checkl, setCheckl] = useState("hidden");
   const [friendRequest, setfriendRequest] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const socket = useSocket();
@@ -81,6 +82,7 @@ const Friend = () => {
         navigate("/error");
       }
       setfriendRequest(res);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -285,7 +287,9 @@ lg:rounded-lg h-screen overflow-hidden"
                 <div className="flex justify-center items-center flex-col w-full h-full">
                   <div className="w-[90%] h-full ">
                     <div className="w-full h-full flex gap-2 flex-wrap">
-                      {suggestedFriends && suggestedFriends.length > 0 ? (
+                      {!loading &&
+                      suggestedFriends &&
+                      suggestedFriends.length > 0 ? (
                         suggestedFriends.map((friend, index) => {
                           return (
                             <div key={index} className="w-44 h-fit">

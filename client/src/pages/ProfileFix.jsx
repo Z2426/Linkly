@@ -397,7 +397,7 @@ const ProfileFix = () => {
                     ))}
 
                   {isPost && !loading && posts?.length == 0 && (
-                    <div className="flex w-full h-full items-center justify-center">
+                    <div className="flex w-full h-full py-10 items-center justify-center">
                       <p className="text-lg text-ascent-2 ">
                         {t("No Post Available")}
                       </p>
@@ -405,8 +405,12 @@ const ProfileFix = () => {
                   )}
 
                   {!isPost && !loading && (
-                    <div className="w-full grid grid-cols-2 gap-4 py-4">
-                      {userInfor?.friends?.length > 0 &&
+                    <div
+                      className={`w-full ${
+                        userInfor?.friends?.length > 0 && "grid grid-cols-2"
+                      }  gap-4 py-4`}
+                    >
+                      {userInfor?.friends?.length > 0 ? (
                         userInfor?.friends?.map((users) => (
                           <div className="w-full" key={users}>
                             <UserCard
@@ -416,7 +420,14 @@ const ProfileFix = () => {
                               isFriend={arrfriend?.includes(users)}
                             />
                           </div>
-                        ))}
+                        ))
+                      ) : (
+                        <div className="flex w-full h-full py-10 items-center justify-center">
+                          <p className="text-lg text-ascent-2 ">
+                            {t("Not found")}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   )}
                   {/* {loading ? (
