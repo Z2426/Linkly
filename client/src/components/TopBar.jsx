@@ -378,7 +378,7 @@ const TopBar = ({ user, setKey }) => {
           {inputValue.startsWith("@searchuser") && (
             <div className="absolute top-full rounded-lg mt-4 w-full max-h-60 h-fit overflow-auto shadow-xl bg-secondary">
               <div className="w-full py-5 flex items-center justify-center text-ascent-2">
-                tìm người X, khổng Y tuổi, sống tại Z...
+                thành tên x, khoảng y tuổi, sống tại z sở thích là
               </div>
             </div>
           )}

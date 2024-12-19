@@ -96,6 +96,7 @@ const CommentForm = ({ user, postid, id, post, replyAt, getComments }) => {
       const chat = data?.comment;
 
       const result = await aichecktext(chat);
+      console.log(result);
 
       if (!result) {
         setErrMsg("");
